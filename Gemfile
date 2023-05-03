@@ -21,6 +21,10 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Use Devise gem for user authentication
+gem 'devise'
+# Use Rolify gem for roles
+gem "rolify"
 # Use pry gem for debbuging
 gem 'pry'
 # Use rubocop gem for coding conventions
