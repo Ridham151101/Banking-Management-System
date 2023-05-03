@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @customers = User.with_role(:customer).includes(:account_request)
-    @pending_customers = @customers.select { |c| c.account_request&.status == 'pending' }
-    @approved_customers = @customers.select { |c| c.account_request&.status == 'approved' }
+    @employees = User.employee
+    @customers = User.customer.joins(:account_request)
+    @pending_customers = @customers.where(account_requests: { status: 'pending' })
+    @approved_customers = @customers.where(account_requests: { status: 'approved' })
   end  
 
   def approve_account_request

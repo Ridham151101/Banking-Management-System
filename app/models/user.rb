@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :customer
   has_one :account_request
 
-  scope :employee, -> { where(User.with_role(:employee)) }
-  scope :customer, -> { where(User.with_role(:customer)) }
+  scope :with_role, ->(role) { joins(:roles).where('roles.name = ?', role.to_s) }
+  scope :employee, -> { with_role(:employee) }
+  scope :customer, -> { with_role(:customer) }
 end
