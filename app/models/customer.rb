@@ -1,4 +1,4 @@
 class Customer < ApplicationRecord
-  belongs_to :users
+  belongs_to :user, optional: true
   has_one :account_request
 end

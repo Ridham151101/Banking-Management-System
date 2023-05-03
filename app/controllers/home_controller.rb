@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @employees = User.with_role(:employee)
     @customers = User.with_role(:customer).includes(:account_request)
     @pending_customers = @customers.select { |c| c.account_request&.status == 'pending' }
     @approved_customers = @customers.select { |c| c.account_request&.status == 'approved' }

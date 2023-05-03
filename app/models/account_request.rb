@@ -1,4 +1,4 @@
 class AccountRequest < ApplicationRecord
-  belongs_to :users
-  belongs_to :customers
+  belongs_to :user
+  belongs_to :customer
 end

@@ -11,12 +11,17 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
     @user.add_role(:customer)
   
-    if @user.save && @customer.save
-      @account_request = AccountRequest.create(customer: @customer, user: @user, status: 'pending')
-      AccountRequestMailer.account_request_approval(@account_request).deliver_now
-  
-      flash[:success] = 'Your account creation request has been submitted successfully'
-      redirect_to new_user_session_path
+    if @user.save!
+      @customer.user_id = @user.id
+      if @customer.save!
+        @account_request = AccountRequest.create(customer_id: @customer.id, user_id: @user.id, status: 'pending')
+        if @account_request.save!
+          AccountRequestMailer.account_request_approval(@account_request).deliver_now
+          
+          flash[:success] = 'Your account creation request has been submitted successfully'
+          redirect_to new_user_session_path
+        end
+      end
     else
       render :new
     end

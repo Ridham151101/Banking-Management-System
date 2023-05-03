@@ -5,6 +5,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :customer, dependent: :destroy
-  has_many :account_requests
+  has_one :customer
+  has_one :account_request
+
+  scope :employee, -> { where(User.with_role(:employee)) }
+  scope :customer, -> { where(User.with_role(:customer)) }
 end
