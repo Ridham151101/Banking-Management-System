@@ -15,10 +15,10 @@ class User < ApplicationRecord
   scope :customer, -> { with_role(:customer) }
 
   def admin?
-    has_role?(:admin)
+    self.has_role?(:admin)
   end
 
   def employee?
-    has_role?(:employee)
+    self.has_role?(:employee)
   end
 end
