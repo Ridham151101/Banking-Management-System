@@ -1,4 +1,4 @@
-<% if current_user&.has_role?(:employee) %>
+<% if employee? %>
   <h1>Pending Customer Requests</h1>
   
   <% if @pending_customers.any? %>
@@ -29,7 +29,7 @@
   <% else %>
     <p>No pending customer requests at the moment.</p>
   <% end %>
-<% elsif current_user&.has_role?(:admin) %>
+<% elsif admin? %>
   <h1>Employees</h1>
 
   <table>

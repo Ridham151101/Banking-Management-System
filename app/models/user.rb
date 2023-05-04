@@ -13,4 +13,12 @@ class User < ApplicationRecord
   scope :with_role, ->(role) { joins(:roles).where('roles.name = ?', role.to_s) }
   scope :employee, -> { with_role(:employee) }
   scope :customer, -> { with_role(:customer) }
+
+  def admin?
+    has_role?(:admin)
+  end
+
+  def employee?
+    has_role?(:employee)
+  end
 end
