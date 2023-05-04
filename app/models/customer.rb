@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   belongs_to :user, optional: true
   has_one :account_request, dependent: :destroy
+  has_many :accounts
 
   after_create :create_account_request
 
