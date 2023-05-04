@@ -1,0 +1,29 @@
+<%= form_for @user, url: customers_path do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br />
+
+  <%= f.label :email %>
+  <%= f.email_field :email %><br />
+
+  <%= f.label :password %>
+  <%= f.password_field :password %><br />
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %><br />
+
+  <%= f.fields_for :customer do |c| %>
+    <%= c.label :phone %>
+    <%= c.text_field :phone %><br />
+
+    <%= c.label :address %>
+    <%= c.text_field :address %><br />
+
+    <%= c.label :birthdate %>
+    <%= c.date_select :birthdate %><br />
+
+    <%= c.label :gender %>
+    <%= c.select :gender, ['Male', 'Female', 'Other'] %><br />
+  <% end %>
+
+  <%= f.submit 'Submit Request', class: 'btn btn-primary' %>
+<% end %>

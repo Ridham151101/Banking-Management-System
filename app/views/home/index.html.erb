@@ -1,0 +1,55 @@
+<% if current_user.employee? %>
+  <h1>Pending Customer Requests</h1>
+  
+  <% if @pending_customers.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending_customers.each do |customer| %>
+          <tr>
+            <td><%= customer.name %></td>
+            <td><%= customer.email %></td>
+            <td><%= customer.account_request.status.capitalize %></td>
+            <td>
+              <%= form_tag approve_account_request_path(customer.id), method: :post do %>
+                <%= button_tag 'Approve Account Request' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No pending customer requests at the moment.</p>
+  <% end %>
+<% elsif current_user.admin? %>
+  <h1>Employees</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.name %></td>
+          <td><%= employee.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Add Employee', new_employee_path, class: 'btn btn-primary' %>
+<% else %>
+  <h1>Customer</h1>
+<% end %>
+<%= button_to "Logout", destroy_user_session_path, method: :delete %>
