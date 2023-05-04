@@ -22,15 +22,17 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Devise gem for user authentication
-gem 'devise'
+gem 'devise', '~> 4.9'
 # Use Rolify gem for roles
-gem "rolify"
+gem 'rolify', '~> 6.0'
 # Use pry gem for debbuging
-gem 'pry'
+gem 'pry', '~> 0.14.2'
 # Use rubocop gem for coding conventions
-gem 'rubocop-rails', require: false
+gem 'rubocop-rails', '~> 2.19', require: false
 # Use dotenv gem for environment variable
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', '~> 2.8', groups: [:development, :test]
+# Use letter_opener gem for mail preview without sending it
+gem "letter_opener", group: :development
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

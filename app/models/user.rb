@@ -5,8 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :customer
+  has_one :customer, dependent: :destroy
   has_one :account_request
+
+  accepts_nested_attributes_for :customer
 
   scope :with_role, ->(role) { joins(:roles).where('roles.name = ?', role.to_s) }
   scope :employee, -> { with_role(:employee) }
