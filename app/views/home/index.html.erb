@@ -18,9 +18,7 @@
             <td><%= customer.email %></td>
             <td><%= customer.account_request.status.capitalize %></td>
             <td>
-              <%= form_tag approve_account_request_path(customer.id), method: :post do %>
-                <%= button_tag 'Approve Account Request' %>
-              <% end %>
+              <%= link_to 'Create Account', new_account_path(customer_id: customer.id), method: :get %>
             </td>
           </tr>
         <% end %>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>Dear <%= @account_request.user.name %>,</p>
+    <p>Your account creation request has been approved. Here are your account details:</p>
+    <ul>
+      <li>Account Number: <%= @account.account_number %></li>
+      <li>Account Type: <%= @account.account_type %></li>
+      <li>Initial Balance: <%= @account.balance %></li>
+    </ul>
+    <p>Thank you for choosing our bank.</p>
+  </body>
+</html>
