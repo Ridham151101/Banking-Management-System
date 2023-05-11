@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @employees = User.employee
-    @pending_customers = @customers.where(account_requests: { status: 'pending' })
+    @pending_customers = @customers.where(account_requests: { status: 'pending', user_id: current_user.id })
   end
   
   def approved_customers
@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
   def approve_account_request
     customer = User.find(params[:id])
-    account_request = customer.account_request
+    account_request = customer.customer.account_request
     account_request.status = 'approved'
     @account = Account.new(account_params)
     @account.customer_id = account_request.customer_id
@@ -33,7 +33,7 @@ class HomeController < ApplicationController
   private
 
   def set_customer
-    @customers = User.customer.joins(:account_request)
+    @customers = Customer.joins(:account_request)
   end
   
   def account_params

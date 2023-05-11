@@ -50,6 +50,10 @@
                     <span class="form-radio-text">Other</span>
                   <% end %>
                 </div>
+              </div>
+              <div class="mb-3">
+                <%= c.label :employee_id, 'Select Employee', class: 'form-label' %>
+                <%= c.collection_select :employee_id, @employees, :id, :name, { prompt: 'Select Employee' }, class: 'form-select' %>
               </div>              
             <% end %>
 						<div class="form-group">

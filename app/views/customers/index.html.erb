@@ -10,8 +10,8 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= customer.name %></td>
-        <td><%= customer.email %></td>
+        <td><%= customer.user.name %></td>
+        <td><%= customer.user.email %></td>
         <td><%= customer.account_request.status.capitalize %></td>
       </tr>
     <% end %>

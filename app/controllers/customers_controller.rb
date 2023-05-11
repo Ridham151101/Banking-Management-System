@@ -2,12 +2,13 @@ class CustomersController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @customers = User.customer.joins(:account_request)
-    @pending_customers = @customers.where(account_requests: { status: 'pending' })
-    @approved_customers = @customers.where(account_requests: { status: 'approved' })
+    @customers = Customer.joins(:account_request)
+    # @pending_customers = @customers.where(account_requests: { status: 'pending' })
+    # @approved_customers = @customers.where(account_requests: { status: 'approved' })
   end
 
   def new
+    @employees = User.employee
     @user = User.new
     @user.build_customer
   end
@@ -27,6 +28,6 @@ class CustomersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, customer_attributes: [:phone, :address, :birthdate, :gender])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, customer_attributes: [:phone, :address, :birthdate, :gender, :employee_id])
   end  
 end

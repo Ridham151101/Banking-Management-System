@@ -14,11 +14,11 @@
       <tbody>
         <% @pending_customers.each do |customer| %>
           <tr>
-            <td><%= customer.name %></td>
-            <td><%= customer.email %></td>
+            <td><%= customer.user.name %></td>
+            <td><%= customer.user.email %></td>
             <td><%= customer.account_request.status.capitalize %></td>
             <td>
-              <%= link_to 'Create Account', new_account_path(customer_id: customer.id), method: :get %>
+              <%= link_to 'Create Account', new_account_path(customer_id: customer.user.id), method: :get %>
             </td>
           </tr>
         <% end %>

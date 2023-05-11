@@ -7,8 +7,8 @@
   <h2>New account request</h2>
   <p>Hi,</p>
   <p>A new account request has been submitted.</p>
-  <p>Customer name: <%= @account_request.user.name %></p>
-  <p>Customer email: <%= @account_request.user.email %></p>
+  <p>Customer name: <%= @account_request.customer.user.name %></p>
+  <p>Customer email: <%= @account_request.customer.user.email %></p>
   <p>Please click the link below to approve the account request:</p>
   <p><%= link_to 'Approve account request', home_index_url %></p>
 </body>
