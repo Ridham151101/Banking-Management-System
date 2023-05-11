@@ -1,0 +1,19 @@
+<h1>Customers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.account_request.status.capitalize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

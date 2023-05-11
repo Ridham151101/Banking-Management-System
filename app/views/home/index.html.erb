@@ -27,6 +27,7 @@
   <% else %>
     <p>No pending customer requests at the moment.</p>
   <% end %>
+  <%= link_to 'Approved Customers', approved_customers_path %>
 <% elsif current_user.admin? %>
   <h1>Employees</h1>
 
@@ -35,6 +36,8 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Created At</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -42,12 +45,22 @@
         <tr>
           <td><%= employee.name %></td>
           <td><%= employee.email %></td>
+          <td><%= employee.created_at.strftime("%m/%d/%Y %I:%M %p") %></td>
+          <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+          <td><%= link_to 'Delete', employee_path(employee), method: :delete, data:{ confirm: 'Are  you sure'} %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
   <%= link_to 'Add Employee', new_employee_path, class: 'btn btn-primary' %>
+  <%= link_to 'Customers', customers_path, class: 'btn btn-primary' %>
 <% else %>
-  <h1>Customer</h1>
+  <h1>Hello <%= current_user.name %></h1>
+  <h2>Welcome to the banking app!</h2>
+  <p>Account Number: <%= current_user.customer.account.account_number %></p>
+  <p>Account Type: <%= current_user.customer.account.account_type %></p>
+  <p>Account Balance: <%= current_user.customer.account.balance %></p>
+  <%= link_to "Transaction", new_transaction_path, class: "button" %>
+  <%= link_to "Transaction History", transactions_path, method: :get %>
 <% end %>
 <%= button_to "Logout", destroy_user_session_path, method: :delete %>

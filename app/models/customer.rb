@@ -1,7 +1,8 @@
 class Customer < ApplicationRecord
   belongs_to :user, optional: true
   has_one :account_request, dependent: :destroy
-  has_many :accounts
+  has_one :account
+  has_many :transaction_logs
 
   after_create :create_account_request
 

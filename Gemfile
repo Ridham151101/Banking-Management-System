@@ -38,6 +38,8 @@ gem "letter_opener", group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+# Use bootstrap-icons gem for bootstrap icons
+gem 'bootstrap-icons', '1.0.13'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

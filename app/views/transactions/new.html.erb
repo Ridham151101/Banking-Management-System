@@ -1,0 +1,55 @@
+<h1>New Transaction</h1>
+
+<%= form_with(model: @transaction, local: true, data: { remote: true }) do |form| %>
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+        <% @transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :transaction_type, 'Transaction Type', class: 'form-label' %>
+    <%= form.select :transaction_type, options_for_select(@transaction_types.keys.map {|transaction_type| [transaction_type.titleize, transaction_type]}), { prompt: 'Select transaction_type' }, class: 'form-select', required: true, id: 'transaction-type-select' %>
+  </div>
+
+  <div id="recipient-account-number-field" style="display: none;">
+    <%= form.label :recipient_account_number %>
+    <%= form.text_field :recipient_account_number, class: "form-control", disabled: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  const transactionTypeSelect = document.getElementById('transaction-type-select');
+  const recipientAccountNumberField = document.getElementById('recipient-account-number-field');
+
+  transactionTypeSelect.addEventListener('change', (event) => {
+    if (event.target.value === 'transfer') {
+      recipientAccountNumberField.classList.remove('d-none');
+      recipientAccountNumberField.style.display = 'block';
+      recipientAccountNumberField.querySelector('input').disabled = false;
+    } else {
+      recipientAccountNumberField.classList.add('d-none');
+      recipientAccountNumberField.querySelector('input').disabled = true;
+    }
+  });
+</script>

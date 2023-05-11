@@ -1,0 +1,24 @@
+<h1>Transaction History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Starting Balance</th>
+      <th>Ending Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transaction_logs.each do |transaction| %>
+      <tr>
+        <td><%= transaction.created_at.strftime("%m/%d/%Y %I:%M %p") %></td>
+        <td><%= transaction.transaction_type.titleize %></td>
+        <td><%= number_to_currency(transaction.transaction_amount, unit: "₹") %></td>
+        <td><%= number_to_currency(transaction.starting_balance, unit: "₹") %></td>
+        <td><%= number_to_currency(transaction.ending_balance, unit: "₹") %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

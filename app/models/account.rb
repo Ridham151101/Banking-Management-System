@@ -1,8 +1,10 @@
 class Account < ApplicationRecord
   ACCOUNT_NUMBER_LENGTH = 14
   belongs_to :customer
+  has_many :transactions
   before_create :generate_account_number
   validates :account_number, uniqueness: true
+  validates :account_type, :balance, presence: true
 
   private
 

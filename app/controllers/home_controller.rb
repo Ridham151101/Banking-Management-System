@@ -1,10 +1,14 @@
 class HomeController < ApplicationController
+  before_action :set_customer, only: [:index, :approved_customers]
+
   def index
     @employees = User.employee
-    @customers = User.customer.joins(:account_request)
     @pending_customers = @customers.where(account_requests: { status: 'pending' })
+  end
+  
+  def approved_customers
     @approved_customers = @customers.where(account_requests: { status: 'approved' })
-  end 
+  end
   
   def new_account
     @account = Account.new
@@ -27,6 +31,10 @@ class HomeController < ApplicationController
   end
 
   private
+
+  def set_customer
+    @customers = User.customer.joins(:account_request)
+  end
   
   def account_params
     params.require(:account).permit(:account_number, :account_type, :balance)

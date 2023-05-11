@@ -1,6 +1,12 @@
 class CustomersController < ApplicationController
   skip_before_action :authenticate_user!
 
+  def index
+    @customers = User.customer.joins(:account_request)
+    @pending_customers = @customers.where(account_requests: { status: 'pending' })
+    @approved_customers = @customers.where(account_requests: { status: 'approved' })
+  end
+
   def new
     @user = User.new
     @user.build_customer
