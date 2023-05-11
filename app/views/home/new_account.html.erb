@@ -1,0 +1,10 @@
+<h1>Create New Account</h1>
+<%= form_with(model: @account, url: approve_account_request_path(@customer), local: true) do |f| %>
+  <%= f.label :account_type %>
+  <%= f.text_field :account_type %>
+
+  <%= f.label :balance %>
+  <%= f.text_field :balance %>
+
+  <%= f.submit 'Create Account' %>
+<% end %>
