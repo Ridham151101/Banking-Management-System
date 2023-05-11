@@ -1,6 +1,10 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_user, except: [:new, :create]
+  before_action :set_user, except: [:index, :new, :create]
+
+  def index
+    @employees = User.employee
+  end
 
   def new
     @user = User.new
@@ -12,7 +16,7 @@ class EmployeesController < ApplicationController
 
     if @user.save
       UserMailer.new_employee_email(@user).deliver_now
-      redirect_to root_path, notice: 'Employee user created successfully.'
+      redirect_to employees_path, notice: 'Employee user created successfully.'
     else
       render :new
     end
@@ -23,15 +27,15 @@ class EmployeesController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to root_path, notice: "Employee was successfully updated."
+      redirect_to employees_path, notice: "Employee was successfully updated."
     else
       render :edit
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to root_path, notice: "Employee successfully destroyed."
+    @user.destroy!
+    redirect_to employees_path, notice: "Employee successfully destroyed."
   end
 
   private

@@ -36,6 +36,9 @@ gem "letter_opener", group: :development
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use paranoid for soft delete functionality
+gem "paranoia", "2.6.1"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # Use bootstrap-icons gem for bootstrap icons

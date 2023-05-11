@@ -57,9 +57,12 @@
               </div>              
             <% end %>
 						<div class="form-group">
-							<%= f.submit 'Sign up' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
+							<%= f.submit 'Send Request' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
 						</div>
 					<% end %>
+          <div class="link">
+            <%= link_to "Log in", new_user_session_path %><br />
+          </div>
 				</div>
 			</div>
 		</section>

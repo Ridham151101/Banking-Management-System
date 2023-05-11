@@ -52,8 +52,6 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to 'Add Employee', new_employee_path, class: 'btn btn-primary' %>
-  <%= link_to 'Customers', customers_path, class: 'btn btn-primary' %>
 <% else %>
   <h1>Hello <%= current_user.name %></h1>
   <h2>Welcome to the banking app!</h2>
@@ -63,4 +61,3 @@
   <%= link_to "Transaction", new_transaction_path, class: "button" %>
   <%= link_to "Transaction History", transactions_path, method: :get %>
 <% end %>
-<%= button_to "Logout", destroy_user_session_path, method: :delete %>

@@ -1,0 +1,27 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>BMS</h3>
+  </div>
+  <ul class="list-unstyled components">
+    <p>Content</p>
+    <li>
+      <%= link_to 'Home' ,root_path %>
+    </li>
+    <li>
+      <% if current_user.has_role?(:admin) %>
+        <%= link_to 'Employees', employees_path %>
+        <%= link_to 'Add Employee', new_employee_path %>  
+        <%= link_to 'Customers', customers_path %>  
+      <% elsif current_user.has_role?(:employee) %>
+        <%= link_to 'Pending Customers', pending_customers_path %>
+        <%= link_to 'Approved Customers', approved_customers_path %>  
+        <%= link_to 'All Customers', customers_path %>
+      <% else %>
+      <% end %>
+    </li>
+      
+    <li>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to logout?" },class:"btn-link"%>        
+    </li>  
+  </ul> 
+</nav>

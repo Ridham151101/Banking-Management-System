@@ -1,13 +1,15 @@
 class HomeController < ApplicationController
-  before_action :set_customer, only: [:index, :approved_customers]
+  before_action :set_customer, only: [:pending_customers, :approved_customers]
 
-  def index
-    @employees = User.employee
+  def home
+  end
+
+  def pending_customers
     @pending_customers = @customers.where(account_requests: { status: 'pending', user_id: current_user.id })
   end
   
   def approved_customers
-    @approved_customers = @customers.where(account_requests: { status: 'approved' })
+    @approved_customers = @customers.where(account_requests: { status: 'approved', user_id: current_user.id })
   end
   
   def new_account
