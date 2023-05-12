@@ -15,14 +15,14 @@
   </head>
 
   <body>
-    <% if current_page?(new_customer_path) || current_page?(new_user_session_path) || current_page?(new_user_password_path) || current_page?(edit_user_registration_path) %> 
+    <% if current_page?(new_customer_path) || current_page?(new_user_session_path) || current_page?(new_user_password_path) || current_page?(edit_user_registration_path) || current_page?(new_user_password_path) || current_page?(destroy_user_session_path) %> 
       <%= yield %>
     <% else %>
       <div class="wrapper">
         <%= render 'shared/sidebar' %>
         <div class="main-content">
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
+          <p class="notice"><% notice %><%= render 'shared/toast' %></p>
+          <p class="alert"><% alert %></p>
           <%= yield %>
         </div>
       </div>

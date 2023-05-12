@@ -382,3 +382,8 @@ input[type=checkbox]:not(:checked):disabled::before {
 .cancel-account {
   margin: auto;
 }
+
+.notice, .alert {
+  text-align: center;
+  font-size: 30px;
+ }

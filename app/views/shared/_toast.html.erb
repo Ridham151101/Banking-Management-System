@@ -1,0 +1,11 @@
+<% if notice.present? %>
+  <script type="text/javascript">
+    toastr.success("<%= j(notice) %>");
+  </script>
+<% end %>
+
+<% if alert.present? %>
+  <script type="text/javascript">
+    toastr.error("<%= j(alert) %>");
+  </script>
+<% end %>

@@ -1,24 +1,26 @@
-<h1>Approved Customer Requests</h1>
-  
-<% if @approved_customers.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @approved_customers.each do |customer| %>
+<div class="container">
+  <h1>Approved Customer Requests</h1>
+
+  <% if @approved_customers.any? %>
+    <table class="table">
+      <thead class="thead-dark">
         <tr>
-          <td><%= customer.user.name %></td>
-          <td><%= customer.user.email %></td>
-          <td><%= customer.account_request.status.capitalize %></td>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No customers at the moment.</p>
-<% end %>
+      </thead>
+      <tbody>
+        <% @approved_customers.each do |customer| %>
+          <tr>
+            <td><%= customer.user.name %></td>
+            <td><%= customer.user.email %></td>
+            <td><%= customer.account_request.status.capitalize %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No customers at the moment.</p>
+  <% end %>
+</div>

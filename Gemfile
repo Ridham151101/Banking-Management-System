@@ -43,6 +43,8 @@ gem "paranoia", "2.6.1"
 gem 'bootsnap', '>= 1.4.4', require: false
 # Use bootstrap-icons gem for bootstrap icons
 gem 'bootstrap-icons', '1.0.13'
+# Use toastr-rails gem for toast notifications
+gem 'toastr-rails', '1.0.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

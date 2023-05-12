@@ -40,3 +40,9 @@ footer {
   justify-content: space-around;
   margin-top: 30px;
 }
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

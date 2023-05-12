@@ -1,9 +1,15 @@
 class HomeController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:home]
   before_action :set_customer, only: [:pending_customers, :approved_customers]
 
   def home
   end
 
+  def account_details
+    @customer = Customer.find(params[:customer_id])
+    @account = @customer.account
+  end
+  
   def pending_customers
     @pending_customers = @customers.where(account_requests: { status: 'pending', user_id: current_user.id })
   end

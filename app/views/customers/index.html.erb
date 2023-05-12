@@ -1,10 +1,11 @@
 <h1>Customers</h1>
-<table>
-  <thead>
+<table class="table table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>Name</th>
       <th>Email</th>
       <th>Status</th>
+      <th>Account Details</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,7 @@
         <td><%= customer.user.name %></td>
         <td><%= customer.user.email %></td>
         <td><%= customer.account_request.status.capitalize %></td>
+        <td><%= link_to "Account Details", account_details_path(customer_id: customer.id), class: "btn btn-primary btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>

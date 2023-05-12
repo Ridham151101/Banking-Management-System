@@ -1,8 +1,8 @@
 <h1>Edit Employee</h1>
 
-<%= form_for(@user, url: employee_path) do |f| %>
+<%= form_for(@user, url: employee_path, html: { class: "needs-validation", novalidate: true }) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
       <ul>
@@ -13,17 +13,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, autofocus: true %>
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Update Employee", data:{ confirm: 'Are  you sure?'} %>
+  <div class="mb-3">
+    <%= f.submit "Update Employee", class: "btn btn-primary", data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Back', employees_path, class: "btn btn-secondary" %>
   </div>
 <% end %>

@@ -1,7 +1,7 @@
 <h1>Employees</h1>
 
-<table class="employee-table">
-  <thead>
+<table class="table table-striped">
+  <thead class="thead-dark">
     <tr>
       <th>Name</th>
       <th>Email</th>
@@ -15,8 +15,10 @@
         <td><%= employee.name %></td>
         <td><%= employee.email %></td>
         <td><%= employee.created_at.strftime("%m/%d/%Y %I:%M %p") %></td>
-        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-        <td><%= link_to 'Delete', employee_path(employee), method: :delete, data:{ confirm: 'Are  you sure'} %></td>
+        <td>
+          <%= link_to 'Edit', edit_employee_path(employee), class: "btn btn-primary btn-sm" %>
+          <%= link_to 'Delete', employee_path(employee), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
