@@ -9,7 +9,8 @@
         <li>
           <% if current_user.admin? || current_user.employee? %>
             <%= link_to 'Employees', employees_path %> 
-            <%= link_to 'Customers', customers_path %>  
+            <%= link_to 'Customers', customers_path %>
+            <%= link_to "Transaction", new_employee_transaction_path %>  
           <% else %>
             <%= link_to "Account Details", account_details_path(customer_id: current_user.customer.id) %>
             <%= link_to "Transaction", new_transaction_path %>

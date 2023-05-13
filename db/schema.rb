@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_11_105611) do
+ActiveRecord::Schema.define(version: 2023_05_13_103306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2023_05_11_105611) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "employee_id"
     t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "employee_transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "transaction_id"
+    t.string "customer_account_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transaction_id"], name: "index_employee_transactions_on_transaction_id"
+    t.index ["user_id"], name: "index_employee_transactions_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -110,6 +120,8 @@ ActiveRecord::Schema.define(version: 2023_05_11_105611) do
   add_foreign_key "account_requests", "users"
   add_foreign_key "accounts", "customers"
   add_foreign_key "customers", "users"
+  add_foreign_key "employee_transactions", "transactions"
+  add_foreign_key "employee_transactions", "users"
   add_foreign_key "transaction_logs", "customers"
   add_foreign_key "transaction_logs", "transactions"
   add_foreign_key "transactions", "accounts"

@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_action :set_employee_transaction, only: [:new, :create]
   before_action :set_account, only: [:new, :create]
 
   def index
@@ -54,6 +55,7 @@ class TransactionsController < ApplicationController
 
         update_account_balance(@account, @transaction)
         update_account_balance(recipient_account, recipient_transaction)
+        update_employee_transaction_id(@employee_transaction, @transaction)
       end
 
       flash[:notice] = "Transfer successful"
@@ -64,6 +66,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       create_transaction_log(@transaction)
       update_account_balance(@account, @transaction)
+      update_employee_transaction_id(@employee_transaction, @transaction)
       flash[:notice] = "Transaction successful"
       redirect_to root_path
     else
@@ -77,13 +80,24 @@ class TransactionsController < ApplicationController
     account.update!(balance: (transaction.ending_balance || 0))
   end
 
+  def update_employee_transaction_id(employee_transaction, transaction)
+    employee_transaction.update!(transaction_id: (transaction.id))
+  end
+
   def withdraw_money 
     @transaction.ending_balance = @transaction.starting_balance - @transaction.amount
   end
 
-
+  def set_employee_transaction
+    @employee_transaction = EmployeeTransaction.last
+  end
+  
   def set_account
-    @account = current_user.customer.account
+    if current_user.employee?
+      @account = Account.find_by(account_number: @employee_transaction.customer_account_number)
+    else
+      @account = current_user.customer.account
+    end
   end
 
   def create_transaction_log(transaction)

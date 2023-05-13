@@ -38,6 +38,8 @@ gem "letter_opener", group: :development
 
 # Use paranoid for soft delete functionality
 gem "paranoia", "2.6.1"
+# Use chartkick gem for display charts
+gem 'chartkick', '5.0.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

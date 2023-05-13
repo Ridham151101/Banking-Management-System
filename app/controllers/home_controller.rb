@@ -2,6 +2,20 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
+    if user_signed_in?
+      if current_user.admin? || current_user.employee?
+        # Logic for displaying charts for admin and employee
+        @employees = User.employee
+        @customers = User.customer
+        @customer_gender_data = Customer.group(:gender).count
+      else
+        # Logic for displaying account details and transactions for customer
+        @customer = current_user.customer
+        @account = @customer.account
+        @transactions = @account.transactions.last(10)
+      end
+    else
+    end
   end
 
   def account_details

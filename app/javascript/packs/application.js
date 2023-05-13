@@ -11,6 +11,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import './src/application.scss'
+import "chartkick/chart.js"
 import './toastr_config';
 window.toastr = toastr
 

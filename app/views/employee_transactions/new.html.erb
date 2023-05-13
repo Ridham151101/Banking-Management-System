@@ -1,0 +1,25 @@
+<h1>New Employee Transaction</h1>
+
+<%= form_with(model: @employee_transaction, url: employee_transactions_path) do |form| %>
+  <% if @employee_transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee_transaction.errors.count, "error") %> prohibited this employee transaction from being saved:</h2>
+
+      <ul>
+        <% @employee_transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_account_number %>
+    <%= form.text_field :customer_account_number, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+
