@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get 'home/home'
   get 'accounts/account_details', to: 'home#account_details', as: 'account_details'
   get 'accounts/new', to: 'home#new_account', as: 'new_account'
-  get 'home/pending_customers', to: 'home#pending_customers', as: 'pending_customers'
-  get 'home/approved_customers', to: 'home#approved_customers', as: 'approved_customers'
   post 'home/approve_account_request/:id', to: 'home#approve_account_request', as: 'approve_account_request'
   
   root to: "home#home"

@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
-  before_action :set_customer, only: [:pending_customers, :approved_customers]
 
   def home
   end
@@ -8,14 +7,6 @@ class HomeController < ApplicationController
   def account_details
     @customer = Customer.find(params[:customer_id])
     @account = @customer.account
-  end
-  
-  def pending_customers
-    @pending_customers = @customers.where(account_requests: { status: 'pending', user_id: current_user.id })
-  end
-  
-  def approved_customers
-    @approved_customers = @customers.where(account_requests: { status: 'approved', user_id: current_user.id })
   end
   
   def new_account
@@ -32,17 +23,17 @@ class HomeController < ApplicationController
 
     if account_request.save && @account.save
       AccountRequestMailer.account_created(account_request, @account).deliver_now
-      redirect_to root_path, notice: 'Account created and request approved'
+      if current_user&.admin?
+        redirect_to customers_path, notice: 'Account created and request approved'
+      else
+        redirect_to root_path, notice: 'Account created and request approved'
+      end
     else
       render :new_account
     end
   end
 
   private
-
-  def set_customer
-    @customers = Customer.joins(:account_request)
-  end
   
   def account_params
     params.require(:account).permit(:account_number, :account_type, :balance)

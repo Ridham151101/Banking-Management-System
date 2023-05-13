@@ -4,7 +4,11 @@
 			<div class="divcontainer">
 				<div class="signup-content">
 					<%= form_for @user, url: customers_path do |f| %>
-						<h2 class="form-title">Request Account</h2>
+            <% if current_user.admin? %>
+              <h2 class="form-title">Create Customer Account</h2>
+            <% else %>
+						  <h2 class="form-title">Request Account</h2>
+            <% end %>  
 						<div class="form-group">
 							<%= f.text_field :name, class: 'form-input' , placeholder: 'Your Name' ,required: true %>
 						</div>
@@ -51,18 +55,29 @@
                   <% end %>
                 </div>
               </div>
-              <div class="mb-3">
-                <%= c.label :employee_id, 'Select Employee', class: 'form-label' %>
-                <%= c.collection_select :employee_id, @employees, :id, :name, { prompt: 'Select Employee' }, class: 'form-select' %>
-              </div>              
+              <% if @employees %>
+                <div class="mb-3">
+                  <%= c.label :employee_id, 'Select Employee', class: 'form-label' %>
+                  <%= c.collection_select :employee_id, @employees, :id, :name, { prompt: 'Select Employee' }, class: 'form-select' %>
+                </div>
+              <% end %>             
             <% end %>
-						<div class="form-group">
-							<%= f.submit 'Send Request' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
-						</div>
-					<% end %>
-          <div class="link">
-            <%= link_to "Log in", new_user_session_path %><br />
-          </div>
+            <% if current_user.admin? %>
+              <div class="form-group">
+                <%= f.submit 'Create Account' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
+              </div>
+              <div class="text-center mb-3"> <!-- Add text-center class for center alignment -->
+                <%= link_to 'Back', customers_path, class: "btn btn-secondary" %>
+              </div>
+            <% else %>
+              <div class="form-group">
+                <%= f.submit 'Send Request' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
+              </div>
+              <div class="link">
+                <%= link_to "Log in", new_user_session_path %><br />
+              </div>
+            <% end %>
+          <% end %>
 				</div>
 			</div>
 		</section>

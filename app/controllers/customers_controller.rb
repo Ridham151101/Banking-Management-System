@@ -2,9 +2,12 @@ class CustomersController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @customers = Customer.joins(:account_request)
-    # @pending_customers = @customers.where(account_requests: { status: 'pending' })
-    # @approved_customers = @customers.where(account_requests: { status: 'approved' })
+    @customers = Customer.all
+    if params[:status].present?
+      @customers = Customer.joins(:account_request).where(account_request: { status: params[:status] })
+    elsif params[:account_number].present?
+      @customers = Customer.joins(:account).where(accounts: { account_number: params[:account_number] }) if params[:account_number].present?
+    end
   end
 
   def new
@@ -14,16 +17,20 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.add_role(:customer)
-    
-    if @user.save!
-      flash[:success] = 'Your account creation request has been submitted successfully'
-      redirect_to new_user_session_path
+  @user = User.new(user_params)
+  @user.add_role(:customer)
+  
+  if @user.save!
+    flash[:success] = 'Your account creation request has been submitted successfully'
+    if current_user&.admin?
+      redirect_to customers_path
     else
-      render :new
+      redirect_to new_user_session_path
     end
+  else
+    render :new
   end
+end
   
   private
   

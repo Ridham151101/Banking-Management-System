@@ -1,10 +1,14 @@
 class EmployeesController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, except: [:index]
   before_action :set_user, except: [:index, :new, :create]
 
   def index
-    @employees = User.employee
-  end
+    if params[:search].present?
+      @employees = User.employee.where("users.name ILIKE ?", "%#{params[:search]}%")
+    else
+      @employees = User.employee
+    end
+  end  
 
   def new
     @user = User.new

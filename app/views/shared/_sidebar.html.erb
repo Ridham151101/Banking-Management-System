@@ -7,14 +7,9 @@
       <% if current_user.present? %>
         <%= link_to 'Home' ,root_path %>
         <li>
-          <% if current_user.has_role?(:admin) %>
-            <%= link_to 'Employees', employees_path %>
-            <%= link_to 'Add Employee', new_employee_path %>  
+          <% if current_user.admin? || current_user.employee? %>
+            <%= link_to 'Employees', employees_path %> 
             <%= link_to 'Customers', customers_path %>  
-          <% elsif current_user.has_role?(:employee) %>
-            <%= link_to 'Pending Customers', pending_customers_path %>
-            <%= link_to 'Approved Customers', approved_customers_path %>  
-            <%= link_to 'All Customers', customers_path %>
           <% else %>
             <%= link_to "Account Details", account_details_path(customer_id: current_user.customer.id) %>
             <%= link_to "Transaction", new_transaction_path %>
