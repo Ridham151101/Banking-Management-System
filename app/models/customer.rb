@@ -3,6 +3,7 @@ class Customer < ApplicationRecord
   has_one :account_request, dependent: :destroy
   has_one :account
   has_many :transaction_logs
+  has_many :favorite_recipients, dependent: :destroy
 
   after_create :create_account_request
 

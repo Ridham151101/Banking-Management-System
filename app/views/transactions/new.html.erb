@@ -29,10 +29,15 @@
       <strong>Transaction Type:</strong> Transfer
       <%= form.hidden_field :transaction_type, value: 'transfer' %>
     </div>
+    <%= link_to 'Add to Favorite', new_favorite_recipient_path, class: "btn btn-primary btn-sm" %> <br/>
     <div class="mb-3">
       <%= form.label :recipient_account_number %>
       <%= form.text_field :recipient_account_number, class: "form-control" %>
     </div>
+
+    <h4>Or select from favorite recipients:</h4>
+    <%= form.collection_select :favorite_recipient_id, current_user.customer.favorite_recipients, :id, :recipient_name, { prompt: 'Select favorite recipient' }, class: 'form-select' %> <br/>
+
   <% else %>
     <div class="mb-3">
       <%= form.label :transaction_type, 'Transaction Type', class: 'form-label' %>

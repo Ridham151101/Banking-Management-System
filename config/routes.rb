@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :customers, only: [:index, :new, :create]
   resources :transactions, only: [:index, :new, :create]
   resources :employee_transactions, only: [:new, :create]
+  resources :favorite_recipients, only: [:index, :new, :create, :destroy]
 
   get 'home/home'
   get 'accounts/account_details', to: 'home#account_details', as: 'account_details'

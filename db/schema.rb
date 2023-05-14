@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_13_103306) do
+ActiveRecord::Schema.define(version: 2023_05_14_134802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 2023_05_13_103306) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["transaction_id"], name: "index_employee_transactions_on_transaction_id"
     t.index ["user_id"], name: "index_employee_transactions_on_user_id"
+  end
+
+  create_table "favorite_recipients", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "recipient_name"
+    t.string "account_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_favorite_recipients_on_customer_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -122,6 +131,7 @@ ActiveRecord::Schema.define(version: 2023_05_13_103306) do
   add_foreign_key "customers", "users"
   add_foreign_key "employee_transactions", "transactions"
   add_foreign_key "employee_transactions", "users"
+  add_foreign_key "favorite_recipients", "customers"
   add_foreign_key "transaction_logs", "customers"
   add_foreign_key "transaction_logs", "transactions"
   add_foreign_key "transactions", "accounts"

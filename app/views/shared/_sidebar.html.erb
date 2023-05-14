@@ -13,6 +13,7 @@
             <%= link_to "Transaction", new_employee_transaction_path %>  
           <% else %>
             <%= link_to "Account Details", account_details_path(customer_id: current_user.customer.id) %>
+            <%= link_to "Favorite Receipents", favorite_recipients_path, method: :get %>
             <%= link_to "Transaction", new_transaction_path %>
             <%= link_to "Transaction History", transactions_path, method: :get %>
           <% end %>

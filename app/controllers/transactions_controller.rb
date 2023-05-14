@@ -26,8 +26,13 @@ class TransactionsController < ApplicationController
         withdraw_money
       end
     when 'transfer'
+      if params[:transaction][:favorite_recipient_id].present?
+        recipient_account_number = FavoriteRecipient.find(params[:transaction][:favorite_recipient_id]).account_number
+        recipient_account = Account.find_by(account_number: recipient_account_number)
+      else
+        recipient_account = Account.find_by(account_number: params[:transaction][:recipient_account_number])
+      end
       
-      recipient_account = Account.find_by(account_number: params[:transaction][:recipient_account_number])
       if recipient_account.nil?
         flash[:alert] = "Recipient account not found"
         redirect_to new_transaction_path
@@ -93,7 +98,7 @@ class TransactionsController < ApplicationController
   end
   
   def set_account
-    if current_user.employee?
+    if current_user.employee? || current_user.admin?
       @account = Account.find_by(account_number: @employee_transaction.customer_account_number)
     else
       @account = current_user.customer.account
