@@ -1,14 +1,14 @@
 class EmployeesController < ApplicationController
-  before_action :authenticate_admin!, except: [:index]
-  before_action :set_user, except: [:index, :new, :create]
+  before_action :authenticate_admin!, except: %i[index]
+  before_action :set_user, except: %i[index new create]
 
   def index
-    if params[:search].present?
-      @employees = User.employee.where("users.name ILIKE ?", "%#{params[:search]}%")
-    else
-      @employees = User.employee
-    end
-  end  
+    @employees = if params[:search].present?
+                   User.employee.where('users.name ILIKE ?', "%#{params[:search]}%")
+                 else
+                   User.employee
+                 end
+  end
 
   def new
     @user = User.new
@@ -26,12 +26,11 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
-      redirect_to employees_path, notice: "Employee was successfully updated."
+      redirect_to employees_path, notice: 'Employee was successfully updated.'
     else
       render :edit
     end
@@ -39,7 +38,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @user.destroy!
-    redirect_to employees_path, notice: "Employee successfully destroyed."
+    redirect_to employees_path, notice: 'Employee successfully destroyed.'
   end
 
   private
