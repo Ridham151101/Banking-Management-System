@@ -4,7 +4,7 @@
 			<div class="divcontainer">
 				<div class="signup-content">
 					<%= form_for @user, url: customers_path do |f| %>
-            <% if current_user.admin? %>
+            <% if current_user.present? && current_user.admin? %>
               <h2 class="form-title">Create Customer Account</h2>
             <% else %>
 						  <h2 class="form-title">Request Account</h2>
@@ -62,7 +62,7 @@
                 </div>
               <% end %>             
             <% end %>
-            <% if current_user.admin? %>
+            <% if current_user.present? && current_user.admin? %>
               <div class="form-group">
                 <%= f.submit 'Create Account' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
               </div>
