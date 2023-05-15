@@ -1,8 +1,8 @@
 <h1>New Employee</h1>
 
-<%= form_for(@user, url: employees_path) do |f| %>
+<%= form_for(@user, url: employees_path, html: { class: "needs-validation", novalidate: true }) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
       <ul>
@@ -13,27 +13,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, autofocus: true %>
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+  <div class="mb-3">
+    <%= f.label :password, class: "form-label" %>
+    <%= f.password_field :password, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: "form-label" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Create Employee" %>
+  <div class="mb-3">
+    <%= f.submit "Create Employee", class: "btn btn-primary" %>
+    <%= link_to 'Back', employees_path, class: "btn btn-secondary" %>
   </div>
 <% end %>

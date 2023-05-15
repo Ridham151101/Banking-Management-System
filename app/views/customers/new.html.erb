@@ -1,29 +1,85 @@
-<%= form_for @user, url: customers_path do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br />
+<body class="bg">
+	<div class="main">
+		<section class="signup">
+			<div class="divcontainer">
+				<div class="signup-content">
+					<%= form_for @user, url: customers_path do |f| %>
+            <% if current_user.present? && current_user.admin? %>
+              <h2 class="form-title">Create Customer Account</h2>
+            <% else %>
+						  <h2 class="form-title">Request Account</h2>
+            <% end %>  
+						<div class="form-group">
+							<%= f.text_field :name, class: 'form-input' , placeholder: 'Your Name' ,required: true %>
+						</div>
+						<div class="form-group">
+							<%= f.email_field :email, class: 'form-input' , placeholder: 'Your Email' ,required: true %>
+						</div>
+						<div class="form-group">
+							<%= f.password_field :password, class: 'form-input' , placeholder: 'Password' %>
+							<span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+						</div>
+						<div class="form-group">
+							<%= f.password_field :password_confirmation, class: 'form-input' , placeholder: 'Repeat your password',required: true %>
+						</div>
+            <%= f.fields_for :customer do |c| %>
+              <div class="form-group">
+                <%= c.text_field :phone, class: 'form-input', placeholder: 'Your Phone Number', required: true %>
+              </div>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %><br />
+              <div class="form-group">
+                <%= c.text_field :address, class: 'form-input', placeholder: 'Your Home Address', required: true %>
+              </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %><br />
+              <div class="form-group">
+                <%= c.label :birthdate, class: 'form-label' %>
+                <%= c.date_field :birthdate, class: 'form-input', placeholder: 'Your Birthdate', required: true %>
+              </div>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %><br />
-
-  <%= f.fields_for :customer do |c| %>
-    <%= c.label :phone %>
-    <%= c.text_field :phone %><br />
-
-    <%= c.label :address %>
-    <%= c.text_field :address %><br />
-
-    <%= c.label :birthdate %>
-    <%= c.date_select :birthdate %><br />
-
-    <%= c.label :gender %>
-    <%= c.select :gender, ['Male', 'Female', 'Other'] %><br />
-  <% end %>
-
-  <%= f.submit 'Submit Request', class: 'btn btn-primary' %>
-<% end %>
+              <div class="form-group">
+                <%= c.label :gender, class: 'form-label' %>
+                <div class="form-radio-group">
+                  <%= c.radio_button :gender, 'Male', id: 'gender_male', class: 'form-radio' %>
+                  <%= c.label :gender_male, class: 'form-radio-label', for: 'gender_male' do %>
+                    <span class="form-radio-text">Male</span>
+                  <% end %>
+              
+                  <%= c.radio_button :gender, 'Female', id: 'gender_female', class: 'form-radio' %>
+                  <%= c.label :gender_female, class: 'form-radio-label', for: 'gender_female' do %>
+                    <span class="form-radio-text">Female</span>
+                  <% end %>
+              
+                  <%= c.radio_button :gender, 'Other', id: 'gender_other', class: 'form-radio' %>
+                  <%= c.label :gender_other, class: 'form-radio-label', for: 'gender_other' do %>
+                    <span class="form-radio-text">Other</span>
+                  <% end %>
+                </div>
+              </div>
+              <% if @employees %>
+                <div class="mb-3">
+                  <%= c.label :employee_id, 'Select Employee', class: 'form-label' %>
+                  <%= c.collection_select :employee_id, @employees, :id, :name, { prompt: 'Select Employee' }, class: 'form-select' %>
+                </div>
+              <% end %>             
+            <% end %>
+            <% if current_user.present? && current_user.admin? %>
+              <div class="form-group">
+                <%= f.submit 'Create Account' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
+              </div>
+              <div class="text-center mb-3"> <!-- Add text-center class for center alignment -->
+                <%= link_to 'Back', customers_path, class: "btn btn-secondary" %>
+              </div>
+            <% else %>
+              <div class="form-group">
+                <%= f.submit 'Send Request' , name: 'submit' , id: 'submit' , class: 'form-submit' %>
+              </div>
+              <div class="link">
+                <%= link_to "Log in", new_user_session_path %><br />
+              </div>
+            <% end %>
+          <% end %>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>

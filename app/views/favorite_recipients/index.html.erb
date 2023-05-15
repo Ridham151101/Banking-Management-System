@@ -1,0 +1,12 @@
+<!-- Favorite Recipients List -->
+<% if @favorite_recipients.any? %>
+  <h2>Favorite Recipients</h2>
+  <div class="list-group">
+    <% @favorite_recipients.each do |favorite_recipient| %>
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <%= favorite_recipient.recipient_name %>
+        <%= button_to 'Remove', favorite_recipient, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to remove this favorite recipient?' } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

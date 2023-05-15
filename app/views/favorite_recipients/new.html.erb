@@ -1,0 +1,11 @@
+<!-- Add to Favorite Form -->
+<%= form_with(model: current_user.customer.favorite_recipients.build, url: favorite_recipients_path, class: 'mb-4') do |favorite_form| %>
+  <h2>Add to Favorite</h2>
+  <%= favorite_form.label :recipient_name %>
+  <%= favorite_form.text_field :recipient_name, class: 'form-control' %>
+
+  <%= favorite_form.label :account_number %>
+  <%= favorite_form.text_field :account_number, class: 'form-control' %>
+
+  <%= favorite_form.submit 'Add to Favorite', class: 'btn btn-primary' %>
+<% end %>

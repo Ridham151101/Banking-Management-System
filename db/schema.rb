@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_070719) do
+ActiveRecord::Schema.define(version: 2023_05_14_134802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,27 @@ ActiveRecord::Schema.define(version: 2023_05_04_070719) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "employee_id"
     t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "employee_transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "transaction_id"
+    t.string "customer_account_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transaction_id"], name: "index_employee_transactions_on_transaction_id"
+    t.index ["user_id"], name: "index_employee_transactions_on_user_id"
+  end
+
+  create_table "favorite_recipients", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "recipient_name"
+    t.string "account_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_favorite_recipients_on_customer_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -56,6 +76,32 @@ ActiveRecord::Schema.define(version: 2023_05_04_070719) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "transaction_logs", force: :cascade do |t|
+    t.decimal "transaction_amount"
+    t.decimal "starting_balance"
+    t.decimal "ending_balance"
+    t.integer "transaction_type"
+    t.bigint "customer_id", null: false
+    t.bigint "transaction_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_transaction_logs_on_customer_id"
+    t.index ["transaction_id"], name: "index_transaction_logs_on_transaction_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.decimal "amount"
+    t.string "description"
+    t.integer "transaction_type"
+    t.decimal "starting_balance"
+    t.decimal "ending_balance"
+    t.string "recipient_account_number"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -65,6 +111,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_070719) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -81,4 +129,10 @@ ActiveRecord::Schema.define(version: 2023_05_04_070719) do
   add_foreign_key "account_requests", "users"
   add_foreign_key "accounts", "customers"
   add_foreign_key "customers", "users"
+  add_foreign_key "employee_transactions", "transactions"
+  add_foreign_key "employee_transactions", "users"
+  add_foreign_key "favorite_recipients", "customers"
+  add_foreign_key "transaction_logs", "customers"
+  add_foreign_key "transaction_logs", "transactions"
+  add_foreign_key "transactions", "accounts"
 end

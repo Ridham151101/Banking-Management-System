@@ -1,0 +1,48 @@
+/* Style the individual cards */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  width: fit-content;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.card p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  margin-top: 1px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.image{
+  height: 550px;
+  width: 900px;
+}
+
+.row1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
