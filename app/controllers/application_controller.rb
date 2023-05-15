@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    redirect_to new_user_session_path unless current_user&.has_role?(:admin)
+    if current_user.present?
+      redirect_to new_user_session_path unless current_user&.has_role?(:admin)
+    end
   end
+
+  def authenticate_admin_employee!
+    unless current_user&.has_role?(:admin) || current_user&.has_role?(:employee)
+      redirect_to root_path, alert: 'You are not authorized to access this page.'
+    end
+  end  
 end

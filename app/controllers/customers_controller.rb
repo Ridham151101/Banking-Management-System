@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_admin!, only: %i[new]
+  before_action :authenticate_admin_employee!, only: %i[index]
 
   def index
     @customers = Customer.all
@@ -28,6 +30,7 @@ class CustomersController < ApplicationController
         redirect_to new_user_session_path
       end
     else
+      flash[:alert] = 'Please fill the proper details'
       render :new
     end
   end
