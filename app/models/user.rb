@@ -17,6 +17,8 @@ class User < ApplicationRecord
   scope :employee, -> { with_role(:employee) }
   scope :customer, -> { with_role(:customer) }
 
+  validates :name, presence: true
+
   def admin?
     self.has_role?(:admin)
   end

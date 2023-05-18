@@ -5,9 +5,10 @@ class EmployeeTransactionsController < ApplicationController
 
   def create
     @employee_transaction = EmployeeTransaction.new(employee_transaction_params)
-    if @employee_transaction.save!
+    if @employee_transaction.save
       redirect_to new_transaction_path, notice: 'Employee transaction was successfully created.'
     else
+      flash[:alert] = 'Please fill the account number.'
       render :new
     end
   end
