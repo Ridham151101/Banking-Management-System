@@ -49,11 +49,11 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-server "3.6.242.67",
-  user: "deploy",
+server "3.111.225.26",
+  user: "ubuntu",
   roles: %w{web app},
   ssh_options: {
-    user: "deploy", # overrides user setting above
+    user: "ubuntu", # overrides user setting above
     keys: %w(/home/ridham/Downloads/sahajanandbank.pem),
     forward_agent: true,
     auth_methods: %w(publickey password)

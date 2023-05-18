@@ -1,9 +1,11 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.2"
 
-set :application, 'Banking-Management-System'
+set :application, 'BankingManagementSystem'
 set :repo_url, 'git@github.com:Ridham151101/Banking-Management-System.git'
-set :deploy_to, '/home/ubuntu/Banking-Management-System'
+set :branch, :deployment_module
+
+set :deploy_to, '/var/www/test/Banking-Management-System/public'
 
 set :rvm_ruby_version, '3.0.0'
 
