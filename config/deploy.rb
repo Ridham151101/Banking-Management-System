@@ -4,10 +4,14 @@ lock "~> 3.17.2"
 set :application, 'BankingManagementSystem'
 set :repo_url, 'git@github.com:Ridham151101/Banking-Management-System.git'
 set :branch, :deployment_module
+set :user, 'ubuntu'
 
-set :deploy_to, '/var/www/test/Banking-Management-System/public'
+set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 
 set :rvm_ruby_version, '3.0.0'
+
+set :rails_env,"production" 
+set :stage,:production
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
