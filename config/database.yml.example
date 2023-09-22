@@ -20,7 +20,6 @@ default: &default
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
-  port: <%= ENV['DATABASE_PORT'] %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -90,5 +89,5 @@ test:
 production:
   <<: *default
   database: Banking_Management_System_production
-  username: Banking_Management_System
+  username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['BANKING_MANAGEMENT_SYSTEM_DATABASE_PASSWORD'] %>

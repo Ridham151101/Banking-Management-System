@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Name: <%= @customer.user.name %></h1>
+      <p class="card-text">Account Number: <%= @account.account_number %></p>
+      <p class="card-text">Account Type: <%= @account.account_type %></p>
+      <p class="card-text">Account Balance: <%= @account.balance %></p>
+      <% if current_user.admin? || current_user.employee? %>
+        <%= link_to 'Back', customers_path, class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

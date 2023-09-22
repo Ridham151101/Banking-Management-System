@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  description: MyString
+  transaction_type: 1
+  starting_balance: 9.99
+  ending_balance: 9.99
+  account: one
+
+two:
+  amount: 9.99
+  description: MyString
+  transaction_type: 1
+  starting_balance: 9.99
+  ending_balance: 9.99
+  account: two

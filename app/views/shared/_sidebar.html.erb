@@ -1,0 +1,30 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>BMS</h3>
+  </div>
+  <ul class="list-unstyled components">
+    <li>
+      <% if current_user.present? %>
+        <%= link_to 'Home' ,root_path %>
+        <li>
+          <% if current_user.admin? || current_user.employee? %>
+            <%= link_to 'Employees', employees_path %> 
+            <%= link_to 'Customers', customers_path %>
+            <%= link_to "Transaction", new_employee_transaction_path %>  
+          <% else %>
+            <%= link_to "Account Details", account_details_path(customer_id: current_user.customer.id) %>
+            <%= link_to "Favorite Receipents", favorite_recipients_path, method: :get %>
+            <%= link_to "Transaction", new_transaction_path %>
+            <%= link_to "Transaction History", transactions_path, method: :get %>
+          <% end %>
+          <li>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to logout?" },class:"btn-link"%>
+          </li>
+        </li>
+      <% else %>
+        <%= link_to "Log In", new_user_session_path, method: :get, class:"btn-link"%>
+        <%= link_to "Account Request", new_customer_path %>
+      <% end %>
+    </li>
+  </ul> 
+</nav>

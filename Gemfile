@@ -21,17 +21,32 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Use Devise gem for user authentication
+gem 'devise', '4.9'
+# Use Rolify gem for roles
+gem 'rolify', '6.0'
 # Use pry gem for debbuging
-gem 'pry'
+gem 'pry', '0.14.2'
 # Use rubocop gem for coding conventions
-gem 'rubocop-rails', require: false
+gem 'rubocop-rails', '2.19', require: false
 # Use dotenv gem for environment variable
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', '2.8', groups: [:development, :test]
+# Use letter_opener gem for mail preview without sending it
+gem "letter_opener", group: :development
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use paranoid for soft delete functionality
+gem "paranoia", "2.6.1"
+# Use chartkick gem for display charts
+gem 'chartkick', '5.0.2'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+# Use bootstrap-icons gem for bootstrap icons
+gem 'bootstrap-icons', '1.0.13'
+# Use toastr-rails gem for toast notifications
+gem 'toastr-rails', '1.0.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -39,6 +54,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rspec-rails', '~> 6.0.0'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
@@ -47,9 +63,16 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger', '0.2.0'
 end
 
 group :test do
+  gem 'shoulda-matchers', '5.3', require: false
+  gem 'factory_bot_rails', '6.2'
+  gem 'faker', '3.2'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
